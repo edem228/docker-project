@@ -6,6 +6,11 @@ RUN apt-get update
 
 #Mise à jour de l'OS Debian
 RUN apt-get upgrade -y
+
+#Activation du module Rewrite pour Apache2
+RUN a2enmod rewrite
+RUN service apache2 restart
+
 # Installation de la librairie PHP-CURL pour composer.
 RUN apt-get install php5-curl -y
 
@@ -14,3 +19,9 @@ RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
 RUN php composer-setup.php
 RUN php -r "unlink('composer-setup.php');"
 RUN mv ./composer.phar /usr/bin/composer
+
+#Récupération du projer Composer
+# WARNING:
+# -Le Docker-file va planter si 'composer install' pose une question.
+# -En prod, la commande 'composer install' va également récupérer les #librairies de dev.
+#RUN composer install

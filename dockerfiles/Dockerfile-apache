@@ -25,3 +25,4 @@ RUN mv ./composer.phar /usr/bin/composer
 # -Le Docker-file va planter si 'composer install' pose une question.
 # -En prod, la commande 'composer install' va également récupérer les #librairies de dev.
 #RUN composer install
+

@@ -12,3 +12,24 @@ services:
     volumes:
       - '/home/aston/Public/docker-project/poo:/var/www/html'
       - '/home/aston/Public/docker-project/apache/000-default.conf:/etc/apache2/sites-available/000-default.conf'
+    links:
+      - 'mysql:mysql.server.com'
+      - 'phpmyadmin:'
+  mysql:
+    image: 'mysql'
+    environment:
+      MYSQL_ROOT_PASSWORD: 'paris'
+      MYSQL_DATABASE: 'aston'
+    volumes:
+      - '/home/aston/Public/docker-project/mysql/shared:/root/shared'
+  phpmyadmin:
+    image: 'phpmyadmin/phpmyadmin'
+    container_name: 'pma'
+    environment:
+      PMA_ABSOLUTE_URI: 'localhost/phpmyadmin'
+      PMA_HOST: 'mysql.server.com'
+    links:
+      - 'mysql:mysql.server.com'
+    ports:
+      - '81:80'
+

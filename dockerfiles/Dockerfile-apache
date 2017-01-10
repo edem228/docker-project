@@ -1,0 +1,16 @@
+FROM eboraas/apache-php
+MAINTAINER Gaetan Pralong <contact@gaetan.io>
+
+# Mise à jour de la liste des dépôts de Debian.
+RUN apt-get update
+
+#Mise à jour de l'OS Debian
+RUN apt-get upgrade -y
+# Installation de la librairie PHP-CURL pour composer.
+RUN apt-get install php5-curl -y
+
+# Téléchargement et installation globale de Composer.
+RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
+RUN php composer-setup.php
+RUN php -r "unlink('composer-setup.php');"
+RUN mv ./composer.phar /usr/bin/composer
